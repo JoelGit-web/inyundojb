@@ -13,7 +13,33 @@ require('action.php');
 ?>
 
   <!-- Navigation -->
-  
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="#">Start Bootstrap</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="#">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
 
 <!-- apa natumia bootstrap kuunda form juu sjui css fity na bootsrap is easier -->
 <div class="container">
@@ -45,7 +71,7 @@ require('action.php');
             <input type="password" name="password" class="form-control" placeholder="Enter Password">
           </div>                   
 
-          <button class="btn btn-block btn-success" name="loginBtn" type="submit">Login</button>
+          <button class="btn btn-block btn-success" name="loginBtn" type="submit">Login Here</button>
 
           <div class="text-center">
             <small><a href="register.php">Dont have an account?...Register Here</a></small>
