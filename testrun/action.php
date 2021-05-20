@@ -58,4 +58,25 @@ if(isset($_POST['loginBtn'])){
             header("Location:login.php");            
         }
 }
+
+
+if(isset($_POST['postComment'])){
+    $id = mysqli_real_escape_string($connect, $_POST['id']);
+    $comment = mysqli_real_escape_string($connect, $_POST['comment']);
+    $email = $_SESSION['loggedInUser'];
+
+    $postComment = mysqli_query($connect, "INSERT INTO  users_comments (comment,email)VALUES('$comment','$email')");
+    if(!$postComment){
+            $_SESSION['status'] = "An error occured...please try again";
+            header("Location:home.php");          
+    }else{
+            $_SESSION['status'] = "Success";
+            header("Location:home.php");         
+    }
+}
+
+if(isset($_GET['delete'])){
+    $id = $_GET['delete'];
+    $deleteComment = mysqli_query($connect, "DELETE *FROM users_comments WHERE id='id'");
+}
 ?>

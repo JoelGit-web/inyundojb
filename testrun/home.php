@@ -12,25 +12,10 @@ include('security.php');
 include('includes/header.php');
 ?>
 
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-6 m-auto py-4">
-			<div class="card-header bg-dark text-light">
-
-				<!--Apa nadai kuchukua details ziko kwa database ndo nizi display apa kwa home page-->
-				<?php
-				$selectDatabaseDetails = mysqli_query($connect, "SELECT *FROM users_table WHERE email='".$_SESSION['loggedInUser']."'");
-				/*nmeweke email= '".$_SESSION['loggedInUser']."' juu nadai kuchukua details za loggedInUser solo
-				hiyo sasa ndo importance ya ku set that ka session kwa login na register*/
-				//alafu apa tunataka kuchukua row by row
-				$row = mysqli_fetch_assoc($selectDatabaseDetails);
-				$emailToSelect = trim($row['email']);
-				$name = trim($row['name']);
-				?>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Welcome </a>
+      <a class="navbar-brand" href="#">InyundoJB</i></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -56,30 +41,76 @@ include('includes/header.php');
   </nav>
 
 
-				<span>My Email is: <small class="text-primary"><?php echo $emailToSelect ?></small></span>
-			</div>
-			<div class="card-body">
-				  <div class="embed-responsive embed-responsive-16by9">
-				     <img class="card-img-top embed-responsive-item" src="images/1.jpg" />
-				  </div>
+<div class="container-fluid">
+	<div class="col-md-9 m-auto py-2">
+		<div class="row">
+				<div class="col-md-6">
+					<div class="card-header bg-dark text-light">
+						<span>Make your comments here</span>
+						
+					</div>
+					<form method="POST" action="action.php" enctype="multipart/form-data">
+                   
+						<div class="form-group">
+							<hr>
+							<label><strong>Post a comment</strong></label>
+							<textarea class="form-control" rows="5" name="comment"></textarea>
+							
+						</div>
+
+						<button name="postComment" class="btn btn-block btn-primary" type="submit">
+						Post Comment
+					    </button>
+	                      <div class="text-danger" style="text-align: center;">
+	                        <?php
+	                        if(isset($_SESSION['status'])){
+	                        	echo $_SESSION['status'];
+	                        	unset($_SESSION['status']);
+	                        }
+	                        ?>
+	                        </div>
+
+						
+					</form>
+					
+				</div>
+				<div class="col-md-6">
+
+
+                    <?php
+                    $selectUserComments = mysqli_query($connect, "SELECT *FROM users_comments ORDER BY id DESC");
+                    if(mysqli_num_rows($selectUserComments)>0){
+                    while($row = mysqli_fetch_assoc($selectUserComments)){
+                    $user_comments = trim($row['comment']);
+                    $user_email = trim($row['email']);
+                    ?>
+
+
+                    <div class="card-header mb-2 bg-dark text-light">
+                    	<span>Comment posted by: <span style="color: grey"><?php echo $user_email?></span></span>
+                    </div>
+
+					<div class="card-body" style="color: grey">						
+						<?php echo $user_comments?>
+					</div>	
+
+					<div style="text-align: right;" class="text-light mb-2 card-footer bg-dark">
+						<!-- <i class="fa fa-edit"></i> -->
+					</div>			
+
+					<?php
+						}
+					}else{
+						echo "No Records";
+					}
+					?>
+					
+				</div>
+				
 			</div>
 			
 		</div>
-		<div class="col-md-6 m-auto py-4">
-			<div class="card-header bg-dark text-light">
-				<span>My Name is: <small class="text-primary"><?php echo $name ?></small></span>
-			</div>
-			<div class="card-body">
-				  <div class="embed-responsive embed-responsive-16by9">
-				     <img class="card-img-top embed-responsive-item" src="images/2.jpg" />
-				  </div>
-			</div>			
-			
-		</div>		
-		
-	</div>
-	
-</div>
+
 
 <?php
 include('includes/scripts.php');
